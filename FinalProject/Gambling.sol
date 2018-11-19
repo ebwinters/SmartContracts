@@ -47,6 +47,10 @@ contract Gambling {
         currentPlayers++;
     }
     
+    function kill() public {
+        if(msg.sender == host) selfdestruct(host);
+    }
+    
     //Function to choose the winners of the pool based on the random winning number
     function chooseWinner(uint _winningNumber) internal{
         winningNumber = _winningNumber;
