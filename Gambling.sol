@@ -33,12 +33,13 @@ contract Gambling {
     //Function allowing a user to join a game fairly, then transfer 1eth to contract
     function joinGame(uint256 guess) payable {
         require(!finished);     //Game must be going on
+        require(guess >= 1);  //Guess is between 1 and 100
+        require(guess <= 100);  //Guess is between 1 and 100
         require(msg.sender != host);    //Host can't play
         require(currentPlayers+1 < maxPlayers);     //Can't exceed max number
         require(!validPlayersMapping[msg.sender]);       //Player not already in game
         require(msg.value == 1 ether,"Amount should be equal to 1 Ether");    //Player must stake 1eth to the pot
         players.push(msg.sender);
-        guess = guess % 101;
         //STAKE HERE
         pot += msg.value;
         playersMapping[msg.sender] = guess;
